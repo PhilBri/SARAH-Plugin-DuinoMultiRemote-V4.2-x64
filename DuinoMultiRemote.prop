@@ -1,0 +1,9 @@
+{
+  "modules" : { 
+    "DuinoMultiRemote"  : {
+      "description": "Arduino real-time demo.",
+      "version": "4.2 (x64)",
+      "Port": ""
+    }
+  }
+}

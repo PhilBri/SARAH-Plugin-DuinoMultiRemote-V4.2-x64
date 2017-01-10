@@ -1,0 +1,134 @@
+{
+  "errs":
+  {
+    "name"        : "[DuinoMultiRemote] ",
+    "port"        : "[DuinoMultiRemote] Undefined Arduino COM Port !",
+    "serialOpen"  : "[DuinoMultiRemote] Connected to Arduino on port : ",
+    "serialClose" : "[DuinoMultiRemote] Disconnected to Arduino.",
+    "connect"     : "[DuinoMultiRemote] is connected to Portlet ...",
+    "disconnect"  : "[DuinoMultiRemote] is disconnected from Portlet ..."
+  },
+
+  "tab" :
+  {
+    "swt_state" : "S",
+    "swt_val"   : "C",
+    "pot_state" : "T",
+    "pot_val"   : "P",
+    "rgb_state" : "X",
+    "red_val"   : "R",
+    "green_val" : "G",
+    "blue_val"  : "B",
+    "led_state" : "D",
+    "led_val"   : "L"
+  },
+
+  "minmax" :
+  {
+    "0"   : "Valeur mini déjà atteinte",
+    "255" : "Valeur maxi déjà atteinte"
+  },
+
+  "led" :
+  {
+    "infos" :
+    {
+      "0" : "La led est éteinte",
+      "1" : "La led est allumée"
+    },
+    "already" :
+    {
+      "1" : "La led est déjà allumée",
+      "0" : "La led est déjà éteinte"
+    },
+    "led_state" :
+    {
+      "0" : ["la led est éteinte", "j'ai coupé la led"],
+      "1" : ["la led est allumée", "j'ai mis la led"]
+    },
+    "led_val" : { "#" : "la led est à #." },
+    "led_dwn" : { "dwn" : ["la led est baissée", "j'ai diminué la led", "la led est descendue"] },
+    "led_up"  : { "up"  : ["la led est montée", "j'ai augmenté la led"] },
+    "cant"    : "Allumez d'abord la led"
+  },
+
+  "rgb" :
+  {
+    "infos" :
+    {
+      "0" : "La RGB est éteinte",
+      "1" : "La RGB est allumée"
+    },
+    "already" :
+    {
+      "0" : "La RGB est déjà éteinte",
+      "1" : "La RGB est déjà allumée"
+    },
+    "rgb_state" :
+    {
+      "0" : ["la RGB est éteinte", "j'ai coupé la RGB"],
+      "1" : ["la RGB est allumée", "j'ai mis la RGB"]
+    }
+  },
+
+  "pot" :
+  {
+    "infos" :
+    {
+      "0" : "Le potentiomètre est éteint",
+      "1" : "Le potentiomètre est allumé"
+    },
+    "already" :
+    {
+      "0" : "le potentiomètre est déjà éteint",
+      "1" : "le potentiomètre est déjà allumé"
+    },
+    "pot_state" :
+    {
+      "0" : ["le potentiomètre est éteint", "j'ai coupé le potentiomètre", "potentiomètre désactivé"],
+      "1" : ["le potentiomètre est allumé", "j'ai mis le potentiomètre", "potentiomètre activé"]
+    },
+    "pot_val" : { "#" : "le potentiomètre est à # %" },
+    "cant"    : "Allumez d'abord le potentiomètre"
+  },
+
+  "swt" :
+  {
+    "infos" :
+    {
+      "0" : "Le dispositif est éteint",
+      "1" : "Le dispositif est allumé"
+    },
+    "already" :
+    {
+      "1" : "le dispositif est déjà allumé",
+      "2" : "le dispositif est déjà éteint"
+    },
+    "swt_state" :
+    {
+      "0" : ["le dispositif est éteint", "j'ai coupé le dispositif"],
+      "1" : ["le dispositif est allumé", "j'ai mis le dispositif"]
+    }
+  },
+  "red" :
+  {
+    "red_up"  : { "up"  : ["le rouge est monté", "j'ai augmenté le rouge" ] },
+    "red_dwn" : { "dwn" : ["le rouge est baissé", "j'ai diminué le rouge", "le rouge est descendu"] },
+    "red_val" : { "#" : "le rouge est à #." },
+    "cant"    : "Allumez d'abord la RGB."
+  },
+  "green" :
+  {
+    "green_up"  : { "up"  : ["le vert est monté", "j'ai augmenté le vert" ] },
+    "green_dwn" : { "dwn" : ["le vert est baissé", "j'ai diminué le vert", "le vert est descendu"] },
+    "green_val" : { "#"   : "le vert est à #." },
+    "cant"    : "Allumez d'abord la RGB."
+  },
+  "blue" :
+  {
+    "blue_up"  : { "up"  : ["le bleu est monté", "j'ai augmenté le bleu" ] },
+    "blue_dwn" : { "dwn" : ["le bleu est baissé", "j'ai diminué le bleu", "le bleu est descendu"]},
+    "blue_val" : { "#"   : "le bleu est à #." },
+    "cant"    : "Allumez d'abord la RGB."
+  }
+}

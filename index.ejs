@@ -1,0 +1,689 @@
+<%- layout('/layout/modal.ejs') -%>
+
+<div>
+  <h5 class="panel-heading panel-success text-success " style="padding-left:0">
+    <span class="label label-success">Auteur</span> Phil Bri
+  </h5>
+
+  <div class="panel panel-default">
+    <ul class="nav nav-pills">
+      <li class="active">
+        <a href="#desc" role="tab" data-toggle="pill"><h3 class="panel-title"><span class="glyphicon glyphicon-home"></span></h3></a>
+      </li>
+      <li>
+        <a href="#fonction" data-toggle="tab"><h3 class="panel-title">Fonctionnement</h3></a>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><h3 class="panel-title">Configuration <span class="caret"></span></h3></a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#cfg-plugin" data-toggle="tab">Plugin</a></li>
+          <li><a href="#cfg-arduino" data-toggle="tab">Arduino</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><h3 class="panel-title">Commandes <span class="caret"></span></h3></a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#cmd-vox" data-toggle="tab">Vocales</a></li>
+          <li><a href="#cmd-duino" data-toggle="tab">Arduino</a></li>
+          <li><a href="#cmd-portlet" data-toggle="tab">Portlet</a></li>
+          <li class="divider"></li>
+          <li><a href="#cmd-error" data-toggle="tab">Erreurs</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#version" data-toggle="tab"><h3 class="panel-title">Version</h3></a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="tab-content panel">
+    <div class="tab-pane active" id="desc">
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Description</div>
+        <div class="panel-body text-justify">
+          <h4>DuinoMultiRemote</h4>
+          <p>
+          Est un plugin de démonstration permettant à <strong>S.A.R.A.H</strong> d'interagir avec une carte <strong>Arduino</strong> afin d'en commander les "objets" ou composants pouvant y êtres sont connectés.
+          </p>
+          <p>
+          Toutefois, dans la plupart des montages, les retours d'états de l'arduino ne sont pas en temps-réel et il faut donc faire régulièrement des requêtes manuelles en les planifiant éventuellemnt avec des <code>CRON's</code> ou des <code>Timers</code>.
+          </p>
+          <p>
+          <strong>Le but de ce module étant de valider:</strong>
+          <ul>
+            <li>La communication temps-réel avec <strong>S.A.R.A.H</strong></li>
+            <li>Le rafraîchissement de portlet.</li>
+          </ul>
+          </p>
+          <p>
+          <strong>En agissant interactivement depuis:</strong>
+          <ul>
+            <li>Le portlet.</li>
+            <ul>
+              <li>Envoi des commandes depuis l'écran du client <strong>S.A.R.A.H</strong></li>
+              <li>Retour d'action.</li>
+            </ul>
+            <li>Les objets/composants reliés à l'<strong>Arduino:</strong></li>
+            <ul>
+              <li>Bouton poussoir.</li>
+              <li>Potentiomètre.</li>
+            </ul>
+            <li>Des requêtes <code>HTTP</code></li>
+            <ul>
+              <li>Sur le port 8080 en <code>REST</code></li>
+              <li>Sur le port 8888 en utilisant la commande <code>emulate</code>.</li>
+            </ul>
+            <li>La commande vocale intégrée à <strong>S.A.R.A.H</strong></li>
+          </ul>
+          </p>
+          <p>
+          <strong>Afin de commander:</strong>
+          <ul>
+            <li>Une LED</li>
+            <ul>
+              <li>Fonction ON/OFF</li>
+              <li>Variation (dimming).</li>
+            </ul>
+            <li>Une LED RGB.</li>
+            <ul>
+              <li>Fonction ON/OFF</li>
+              <li>Sélection des couleurs via <code>colopicker</code> intégré au portlet.</li>
+            </ul>
+            <li>Un display LCD</li>
+            <ul>
+              <li>Etat général (ON/OFF).</li>
+              <li>Valeur du dimming de la LED.</li>
+              <li>Valeurs des composantes RGB.</li>
+              <li>Etat des LED's</li>
+            </ul>
+          </ul>
+          </p>
+        </div>
+        <div class="panel-footer text-justify">
+          <p>
+          La plupart des montages à base d'Arduino, sont réalisés dans un but pédagogique. Ce plugin relève de cette même volontée et devrait vous permettre de mesurer les possibilités d'interaction entre l'<strong>Arduino</strong> et <strong>S.A.R.A.H</strong>, tout en s'adaptant - facilement - à vos besoins spécifiques d'IOT/Domotique et de leur traitement en temps-réel.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="fonction">
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Code</div>
+        <div class="panel-body text-justify">
+          <p>
+          Pour son fonctionnement global, <strong>DuinoMultiRemote</strong> à besoin de charger des bibliothèques (librairies) <code>NodeJs</code>. Elles sont jointes à cette distribution et disponibles dans le répertoire <code>/node_modules</code> du plugin.
+          </p>
+          <p>
+          <strong>Ce sont :</strong>
+          <ul>
+            <li><code>node-serialport</code>
+            <a href='https://github.com/voodootikigod/node-serialport' title="serialport - GitHub"><img src="/duinomultiremote/www/images/octocat.png" style="height:4%; width:4%"/></a>
+            </li>
+              <ul>
+                <li>Pour assurer les communications entre le plugin et l'arduino via le port série.</li>
+              </ul>
+            <li><code>socket.io</code>
+            <a href='http://socket.io/' title="Socket.IO"><img src="/duinomultiremote/www/images/socketio-logo.jpg" style="height:7%;width:7%"/></a>
+              <ul>
+                <li>Pour une liaison via <code>socket</code> entre le plugin (serveur) et le portlet (client).</li>
+              </ul>
+            </li>
+          </ul>
+          </p>
+        </div>
+        <div class="panel-footer text-justify">
+          <p>
+          Pour la gestion interactive des couleurs assignées à la LED RGB le plugin utilise aussi :
+          <ul>
+            <li>
+            <code>spectrum</code>
+            <a href='https://github.com/bgrins/spectrum' title="Spectrum - GitHub"><img src="/duinomultiremote/www/images/octocat.png" style="height:4%;width:4%"></a>
+              <ul>
+                <li>Un <code>colorpicker</code> utilisé dans le portlet.</li>
+              </ul>
+            </li>
+          </ul>
+          </p>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Principe</div>
+        <div class="panel-body text-justify">
+          <p><strong>Chronologie :</strong></p>
+          <p>
+          <ul>
+            <strong>1</strong> - Les requètes sont envoyées vers l'Arduino via la librairie <code>node-serialport</code> depuis le port <code>COM</code> de l'ordinateur.
+            <br>
+            <strong>2</strong> - Le <code>sketch</code> de l'Arduino retourne via <code>node-serialport</code>, le nouvel état de ses composants au plugin et met à jour l'afficheur LCD.
+            <br>
+            <strong>3</strong> - La librairie <code>socket.io</code> permet de mettre immédiatement à jour le portlet afin de refleter le résultat de la requète.
+          </ul>
+          </p>
+          <p><strong>Schéma fonctionnel (principe):</strong></p>
+          <p>
+          <h3 class="text-center">
+            Arduino <span class="glyphicon glyphicon-transfer"></span><strong> <code>SerialPort</code> </strong><span class="glyphicon glyphicon-transfer"></span> Plugin <span class="glyphicon glyphicon-transfer"></span><strong> <code>Socket.IO</code> </strong><span class="glyphicon glyphicon-transfer"></span> Portlet
+          </h3>
+          </p>
+        </div>
+        <div class="panel-footer text-justify">
+          <p><strong>Avantages:</strong></p>
+          <p>
+          <ul>
+            <li>
+              <code>socketIo</code> évite de rafraîchir le navigateur, ou de mettre en place un <code>CRON</code> ou un <code>timer</code> pour mettre à jour le portlet.
+            </li>
+            <li>
+              <code>serialPort</code> permet la communication série <code>USB</code> avec l'Arduino.
+            </li>
+          </ul>
+          </p>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Fonctions</div>
+        <div class="panel-body text-justify">
+          <p>
+            L'ensemble des interactions entre les fonctions de <strong>MultiDuinoRemote</strong>, les composants de l'<strong>Arduino</strong> et <strong>S.A.R.A.H</strong> est résumé dans le tableau ci-aprés :
+          </p>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="text-center" style="vertical-align:middle;" rowspan="2">Fonctions</th>            
+                <th class="text-center" style="vertical-align:middle;" colspan="2">Composant concerné</th>
+                <th class="text-center" colspan="3">Commandes S.A.R.A.H</th>
+                <th class="text-center" style="vertical-align:middle" rowspan="2">Ret. Etat</th>
+              </tr>
+              <tr>
+                <th class="text-center">Arduino</th>
+                <th class="text-center">Relié à</th>
+                <th class="text-center">Vocale</th>
+                <th class="text-center">Portlet</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr class="text-center">
+                <td>On/Off Général</td>
+                <td>LED & RGB</td>
+                <td>Btn Poussoir</td>
+                <td>Oui</td>
+                <td>Oui</td>
+                <td>Oui</td>
+              </tr>
+              <tr class="text-center">
+                <td rowspan="2"style="vertical-align:middle;">On/Off</td>
+                <td>LED</td>
+                <td rowspan="2"style="vertical-align:middle;">S.A.R.A.H</td>
+                <td>Oui</td>
+                <td>Oui</td>
+                <td>Oui</td>
+              </tr>
+              <tr class="text-center">
+                <td>RGB</td>
+                <td>Oui</td>
+                <td>Oui</td>
+                <td>Oui</td>
+              </tr>
+              <tr class="text-center">
+                <td rowspan="2"style="vertical-align:middle;">Dimmable</td>
+                <td rowspan="2"style="vertical-align:middle;">LED</td>
+                <td>S.A.R.A.H</td>
+                <td>Oui</td>
+                <td>Oui</td>
+                <td>Oui</td>
+              </tr>
+              <tr class="text-center">
+                <td>Potentiomètre N°1</td>
+                <td class="label-danger">Non</td>
+                <td class="label-danger">Non</td>
+                <td>Oui</td>
+              </tr>
+              <tr class="text-center">
+                <td>Nb. Cycles</td>
+                <td>Btn Poussoir</td>
+                <td>S.A.R.A.H</td>
+                <td class="label-danger">Non</td>
+                <td class="label-danger">Non</td>
+                <td>Oui</td>
+              </tr>
+              <tr class="text-center">
+                <td rowspan="2"style="vertical-align:middle;">Affichage</td>
+                <td rowspan="2"style="vertical-align:middle;">LCD</td>
+                <td>S.A.R.A.H</td>
+                <td class="label-danger">Non</td>
+                <td class="label-danger">Non</td>
+                <td>Oui</td>
+              </tr>
+              <tr class="text-center">
+                <td>Potentiomètre N°2</td>
+                <td class="label-danger">Non</td>
+                <td class="label-danger">Non</td>
+                <td class="label-danger">Non</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Requêtes HTTP</div>
+        <div class="panel-body text-justify">
+          <p>
+            <strong>DuinoMultiRemote</strong> maintient en permanence, aprés chaque action, un fichier récapitulatif du dernier état des composants gérés par l'<strong>Arduino</strong>.
+          </p>
+          <p>
+            Le but étant de remonter les données vers un programme tiers (Box, Appli, Stockage) pour pouvoir les y intégrer. Comme, par exemple, la réalisation d'un périphérique "virtuel" sur une box domotique qui pourra déclancher des actions en fonction des états retournés.
+          </p>
+          <p>
+            Le contenu de ce fichier est au format <code>JSON</code> et est disponible en "local" dans le répertoire du plugin sous le nom <code>values.ejs</code>.
+          </p>
+          <p>La requête http permettant d'y accéder est la suivante :</p>
+          <p><strong><pre class="text-center">http://{votre_ip}:8080/plugin/DuinoMultiRemote/values</pre></strong></p>
+          <p>
+            Cette requête peut être directement assignée: <code>var my_Var = http://{server_ip}:8080/plugin/DuinoMultiRemote/values;</code> 
+          </p>
+        </div>
+        <div class="panel-footer text-justify">
+        <strong>Attention:</strong>
+          <p>
+            La requête est sensible à la casse, et le nom du plugin est: <strong>D</strong>uino<strong>M</strong>ulti<strong>R</strong>emote
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="cfg-plugin">
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Port COM</div>
+        <div class="panel-body text-justify">
+          <p>
+            Pour pouvoir fonctionner, le module a besoin de connaître le port <code>COM{x}</code> de l'<strong>Arduino</strong> afin de lui envoyer les requêtes demandées via la liaison USB. (Il est à noter que la gestion via des shields "ethernet" est aussi possible...).
+          </p>
+          <p>Vous devez donc, via le <code>portlet</code> du module, paramétrer le port COM :</p>
+          <ul><li>Port : <code>{COM{x}}</code></li></ul>
+          <p>Ou <code>{x}</code> représente le numéro du port. (ie: COM3)</p>
+        </div>
+        <div class="panel-footer">
+          <p><strong>DuinoMultiRemote</strong> vous avertira des erreurs éventuelles dans la console du serveur.</p>
+          <p class="text-center"><em>(Vous aurez peut-être besoin de relancer SARAH aprés cette action...)</em></p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="cfg-arduino">
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Programmation Arduino</div>
+        <div class="panel-body text-justify">
+          <p>
+            Pour pouvoir fonctionner correctement avec <strong>DuinoMultiRemote</strong>, l'<strong>Arduino</strong> à besoin d'un programme adapté ou <code>sketch</code> lui permettant de:
+          </p>
+          <p>
+            <ul>
+              <li>Communiquer avec le plugin.</li>
+              <li>Interagir avec les composants</li>
+            </ul>
+          </p>
+          <p>
+            Ce programme est disponible dans le sous-répertoire <code>/arduino/duinomultiremote</code> du plugin sous le nom <code>DuinoMultiRemote.ino</code>
+          </p>
+         </div>
+         <div class="panel-footer text-justify">
+          <p>
+            Vous devrez donc impérativement compiler ce programme, puis le "téléverser" avec un programme adapté dans la mémoire de l'<strong>Arduino</strong>, afin de pouvoir en exploiter les possibiltés.
+          </p>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Câblage Arduino</div>
+        <div class="panel-body text-justify">
+          <p>
+            Le <code>sketch</code> de l'<strong>Arduino</strong> gère les composants qui peuvent lui êtres connectés via ses <code>Pins</code>. Toutefois, vous pouvez vous contenter de ne cabler que ceux qui vous intérressent ou qui sont en votre possession...
+          </p>
+          <p>
+            D'autre part, les composants "visibles" sont couplés avec certains composants "actifs" (cf: Tableau), ce qui permet de les actionner directement depuis la <code>breadboard</code> de l'<strong>Arduino</strong>.
+          </p>
+          <p><h4 class="text-center"><u>Tableau récapitulatif des connexions:</u></h4></p>
+          <p>
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>Composant</th>
+                <th>Fonction</th>
+                <th>Arduino</th>
+                <th>Association</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>LED</td>
+                <td>PWM~</td>
+                <td>Pin N°3</td>
+                <td>Potentiomètre N°1 - Poussoir</td>
+              </tr>
+              <tr>
+                <td rowspan="3" style="vertical-align:middle;">RGB LED</td>
+                <td>Red Color</td>
+                <td>Pin N°5</td>
+                <td rowspan="3" style="vertical-align:middle;">Poussoir</td>
+              </tr>
+              <tr>
+                <td>Green Color</td>
+                <td>Pin N°6</td>
+              </tr>
+              <tr>
+                <td>Blue Color</td>
+                <td>Pin N°9</td>
+              </tr>
+              <tr>
+                <td>Poussoir</td>
+                <td>Contact sec</td>
+                <td>Pin N°2</td>
+                <td>LED - RGB</td>
+              </tr>
+              <tr>
+                <td>Potentiomètre N°1</td>
+                <td>Analogique</td>
+                <td>Pin N°A0</td>
+                <td>LED</td>
+              </tr>
+              <tr>
+                <td rowspan="6" style="vertical-align:middle;">LCD Panel</td>
+                <td>LCD 'RS'</td>
+                <td>Pin N°7</td>
+                <td rowspan="6" style="vertical-align:middle;">Potentiomètre N°2</td>
+              </tr>
+              <tr>
+                <td>LCD 'E'</td>
+                <td>Pin N°8</td>
+              </tr>
+              <tr>
+                <td>LCD 'DB4'</td>
+                <td>Pin N°10</td>
+              </tr>
+              <tr>
+                <td>LCD 'DB5'</td>
+                <td>Pin N°11</td>
+              </tr>
+              <tr>
+                <td>LCD 'DB6'</td>
+                <td>Pin N°12</td>
+              </tr>
+              <tr>
+                <td>LCD 'DB7'</td>
+                <td>Pin N°13</td>
+              </tr>
+              <tr>
+                <td>Potentiomètre N°2</td>
+                <td>LCD Contrast</td>
+                <td></td>
+                <td>LCD Panel</td>
+              </tr>
+            </tbody>
+          </table>
+          </p>
+        </div>
+        <div class="panel-footer text-justify">
+          <p><strong>DuinoMultiRemote</strong> fonctionnera parfaitement si vous ne connectez qu'une partie des composants (ie: que la LED RGB). En revanche, les données remontées au portlet seront incomplètes...
+          </p>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Câblage Breadboard</div>
+        <div class="panel-body text-justify">
+          <p>Concernant le câblage de la <code>breadboard</code>, vous pouvez vous inspirer du schéma ci-dessous.</p>
+          <p class="text-center">
+            <img src="/duinomultiremote/www/images/DuinoMultiRemote_Sketch.png" style="height:85%;width:85%"/>
+          </p>
+          <p>
+            Le fichier <strong>Fritzing</strong> correspondant à ce montage est disponible dans le sous-répertoire <code>/arduino</code> du plugin sous le nom <code>DuinoMultiRemote.fzz</code>, ce qui vous permettra de pouvoir le modifier à votre convenance.
+          </p>
+        </div>
+        <div class="panel-footer text-justify">
+          <p>Les valeurs des résistances seront à adapter en fonctions des LED's utilisées. D'autre part, les potentiomètres étants - par nature - instables à la lecture via les convertisseurs de l'Arduino, il vous est conseillé d'utiliser un filtre passe-bas comme sur le montage ci-dessus.
+          </p>
+          Pour info, les valeurs utilisées dans le montage ci-dessus sont:
+          <ul>
+            <li>Résistance = 16kΩ</li>
+            <li>Condensateur = 10µF</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="cmd-vox">
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Grammaire</div>
+        <div class="panel-body text-justify">
+          <p>
+            L'ensemble de la grammaire utilisée par le module est stockée dans le répertoire du plugin sous le nom : <code>DuinoRemote.xml</code>
+          </p>
+          <p>
+            Ce fichier est aisément éditable par vos soins pour vous permettre de modifier, ajouter ou retirer une commande vocale.
+          </p>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Commandes vocales</div>
+        <div class="panel-body text-justify">
+          <p><strong>Les commandes sont divisées en 2 catégories :</strong></p>
+          <p>
+          <ul>
+            <li>Commandes d'action.</li>
+            <li>Commandes de retour d'état.</li>
+          </ul>
+          </p>
+          <p>
+          Les commandes d'<strong>action</strong> permettent de modifier l'état d'un périphérique et les commandes de <strong>retour d'état</strong> permettent d'en connaître le statut.
+          </p>
+          <p>
+          Il est à noter que si une commande ne peut aboutir, le plugin vous en avertira.
+          </p>
+        </div>
+        <div class="panel-footer text-justify">
+          <p>
+            <strong>Exemple:</strong>
+          </p>
+          <p>
+          <code>Sarah allume la Led</code> alors que la LED déjà allumée... <strong>S.A.R.A.H</strong> vous répondra : <code>La LED est déjà allumée.</code>
+          </p>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Exemples de commandes vocales</div>
+        <div class="panel-body text-justify">
+          <strong><u>Commandes d'action :</u></strong> (Exemples)
+          <p><pre><em>SARAH allume la LED</em></pre></p>
+          <ul>
+            <li>Envoi <code>"L{ledValue},1\n"</code> sur le port COM</li>
+            <li>Retour vocal: <code>La Led est allumée</code></li>
+          </ul>
+          <pre><em>SARAH éteinds la LED</em></pre>
+          <ul>
+            <li>Envoi <code>"L{ledValue},0\n"</code> sur le port COM</li>
+            <li>Retour vocal: <code>La Led est éteinte</code></li>
+          </ul>
+          <pre><em>SARAH éteinds la RGB</em></pre>
+          <ul>
+            <li>Envoi <code>"R{red-val},{green-val},{blue-val},0\n"</code> sur le port COM</li>
+            <li>Retour vocal: <code>La RGB est éteinte</code></li>
+          </ul>
+          <pre><em>SARAH allume la RGB</em></pre>
+          <ul>
+            <li>Envoi <code>"R{red-val},{green-val},{blue-val},1\n"</code> sur le port COM</li>
+            <li>Retour vocal: <code>La RGB est allumée</code></li>
+          </ul>
+          <strong><u>Commande de retour d'état:</u></strong> (Exemple)
+          <p><pre><em>SARAH quel est l'état de la LED</em></pre></p>
+          <ul>
+            <li>Envoi <code>"?\n"</code> sur le port COM</li>
+            <li>Retour vocal: <code>La Led est {éteinte,allumée}</code></li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Liste des commandes vocales</div>
+        <div class="panel-body text-justify">
+          <pre class="text-center">SARAH</pre><p class="text-center">puis :</p>
+          <h5><u>Etats:</u></h5>
+          <p><pre>{Donne moi, Quel est, Dis moi} l'état de la led ?</pre></p>
+          <p><pre>{Donne moi, Quel est, Dis moi} l'état de la RGB ?</pre></p>
+          <p><pre>{Donne moi, Quel est, Dis moi} l'état du potentiomètre ?</pre></p>
+          <p><pre>{Donne moi, Quel est, Dis moi} l'état du dispositif ?</pre></p>
+          <h5><u>Valeurs:</u></h5>
+          <p><pre>{Donne moi, Quel est, Dis moi} la valeur de la led ?</pre></p>
+          <p><pre>{Donne moi, Quel est, Dis moi} la valeur du rouge ?</pre></p>
+          <p><pre>{Donne moi, Quel est, Dis moi} la valeur du vert ?</pre></p>
+          <p><pre>{Donne moi, Quel est, Dis moi} la valeur du bleu ?</pre></p>
+          <p><pre>{Donne moi, Quel est, Dis moi} la valeur du potentiomètre ?</pre></p>
+          <h5><u>Allume:</u></h5>
+          <p><pre>{Allume, Mets} la LED.</pre></p>
+          <p><pre>{Allume, Mets} la RGB.</pre></p>
+          <p><pre>{Allume, Mets} le dispositif.</pre></p>
+          <p><pre>{Allume, Mets} le potentiomètre</pre></p>
+          <h5><u>Eteint:</u></h5>
+          <p><pre>{Eteint, Coupe} la LED.</pre></p>
+          <p><pre>{Eteint, Coupe} la RGB.</pre></p>
+          <p><pre>{Eteint, Coupe} le dispositif.</pre></p>
+          <p><pre>{Eteint, Coupe} le potentiomètre.</pre></p>
+          <h5><u>Augmente:</u></h5>
+          <p><pre>{Monte, Augmente} la LED.</pre></p>
+          <p><pre>{Monte, Augmente} le rouge.</pre></p>
+          <p><pre>{Monte, Augmente} le vert.</pre></p>
+          <p><pre>{Monte, Augmente} le bleu.</pre></p>
+          <h5><u>Diminue:</u></h5>
+          <p><pre>{Baisse, Diminue, Descend} la LED.</pre></p>
+          <p><pre>{Baisse, Diminue, Descend} le rouge.</pre></p>
+          <p><pre>{Baisse, Diminue, Descend} le vert.</pre></p>
+          <p><pre>{Baisse, Diminue, Descend} le bleu.</pre></p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="cmd-duino">
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Commandes Arduino</div>
+        <div class="panel-body text-justify">
+          <p>
+            Il est possible de commander les LED's via les 2 composants "actifs" cablés sur la <code>breadboard</code>.
+          </p>
+          <p><strong>1 - Le potentiomètre :</strong></p>
+          <p>
+            <ul>
+              <li>Est relié via le <code>sketch</code> Arduino à la LED.</li>
+              <li>Une rotation permet de faire varier l'intensité lumineuse de la LED.</li>
+            </ul>
+           </p>
+          <p><strong>2 - Le bouton poussoir :</strong></p>
+          <p>
+          <ul>
+            <li>Est relié via le <code>sketch</code> Arduino à la LED <strong>et</strong> à la RGB.</li>
+            <li>Un appui bref permet d'éteindre/ allumer la LED <strong>et</strong> la RGB.</li>
+          </ul>
+          </p>
+          <p>
+            La réalisation d'une de ces actions entraînera les mises à jour suivantes dans le portlet:
+          </p>
+          <ul>
+            <li>Valeur analogique du potentiomètre.</li>
+            <li>Etat et valeur d'intensité de la LED.</li>
+            <li>Affichage du nombre de cycles d'allumage/extinction.</li>
+          </ul>
+         </div>
+         <div class="panel-footer text-justify">
+          <p>
+          Un second potentiomètre est présent sur la <code>breadboard</code> de l'<strong>Arduino</strong>. Celui-ci n'est pas lié à <strong>S.A.R.A.H</strong> ni à l'<strong>Arduino</strong>, mais directement à l'afficheur LCD. Il vous permettra, par sa rotation, d'en régler le contraste afin de rendre l'affichage clairement visible.
+          </p>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Bypass des commandes</div>
+        <div class="panel-body text-justify">
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="cmd-portlet">
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Commandes Portlet</div>
+        <div class="panel-body text-justify">
+          <p>
+            Le portlet étant relié à l'<strong>Arduino</strong> en mode bidirectionnel (via le plugin), il est tout à fait possible d'utiliser votre écran pour envoyer vos commandes et pour en visualiser les retours.
+          </p>
+          <p><strong>Vous pouvez donc clicker sur :</strong></p>
+          <p>
+          <ul>
+            <li>
+              Les boutons actifs : <span class="badge progress-bar-info">ON</span>&nbsp; Pour en changer l'état &nbsp; <span class="badge">OFF</span>
+            </li>
+            <br>
+            <li>Les sliders :
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default btn-xs disabled" style="height:25px">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+                <button type="button" class="btn btn-danger btn-xs disabled" style="height:25px">128</button>
+                <button type="button" class="btn btn-default btn-xs disabled" style="height:25px">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>
+              </div>&nbsp; Pour en faire varier la valeur.
+            </li>
+          </ul>
+          </p>
+          <p>
+          Les requètes correspondantes sont alors envoyées sans délai à l'<strong>Arduino</strong> et le portlet immédiatement mis à jour...
+          </p>
+        </div>
+        <div class="panel-footer text-justify">
+        <p>
+          Les commandes via le portlet ou HTTP n'étant pas des commandes vocales, aucun retour ne sera vocalisé par S.A.R.A.H. Toutefois le portlet et éventuellement l'afficheur LCD de l'<strong>Arduino</strong> afficheront le résultat de l'action demandée.
+        </p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="cmd-error">
+      <div class="panel panel-danger">
+        <div class="panel-heading panel-title">Erreurs</div>
+        <div class="panel-body text-justify">
+        <p>Les erreurs générées par le programme peuvent notament, avoir les origines suivantes:</p>
+        <p>
+          <ul>
+            <li>L'<strong>Arduino</strong> n'est pas branché <strong>avant</strong> le lancement du serveur.</li>
+            <li>Erreur de paramètrage du port COM.</li>
+            <li>Erreur lors de la requète.</li>
+          </ul>
+        </p>
+        </div>
+        <div class="panel-footer text-justify">
+          <p>
+          La gestion des erreurs est normalement suffisante pour les besoins du plugin, mais n'est pas totalement implémentée...
+          Si vous en souhaitez une gestion plus complète, ll vous appartiendra de les traiter en conséquence dans votre version définitive.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="version">
+      <div class="panel panel-info">
+        <div class="panel-heading panel-title">Version 0.1 - (SARAH V4.x)</div>
+        <div class="panel-body text-justify">
+          <strong>Composants Arduino pris en charge:</strong>
+          <ul>
+            [X] RGB LED.<br>
+            [X] LED.<br>
+            [X] Switch.<br>
+            [X] Potentiomètres (x2).<br>
+            [X] LCD Panel<br>
+          </ul>
+          <strong>Fonctions prises en charge:</strong>
+          <ul>
+            [X] GENERAL ON/OFF.<br>
+            [X] LED ON/OFF.<br>
+            [X] LED dimmer.<br>
+            [X] RGB color changing.<br>
+            [X] RGB ON/OFF<br>
+          </ul>
+        </div>
+        <div class="panel-footer">
+          <strong>En développement:</strong>
+          <ul>
+            [-] RGB localStorage.<br>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

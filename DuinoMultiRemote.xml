@@ -1,0 +1,150 @@
+<grammar version="1.0" xml:lang="fr-FR" mode="voice"  root="ruleDuinoMultiRemote" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+
+  <rule id="ruleDuinoMultiRemote" scope="public">
+    <tag>out.action=new Object();</tag>
+    <item>SARAH</item>
+    <one-of>
+      <!-- ON/OFF -->
+      <item>
+        <ruleref uri="#ruleOnOff"/>
+        <tag>out.action=rules.latest();</tag>
+      </item>
+      <!-- UP dimm. -->
+      <item>
+        <ruleref uri="#ruleUp"/>
+        <tag>out.action=rules.latest();</tag>
+        <tag>out.action.val="up";</tag>
+      </item>
+      <!-- DOWN dimm. -->
+      <item>
+        <ruleref uri="#ruleDwn"/>
+        <tag>out.action=rules.latest();</tag>
+        <tag>out.action.val="dwn";</tag>
+      </item>
+      <!-- Get status -->
+      <item>
+        <ruleref uri="#ruleStateValue"/>
+        <tag>out.action=rules.latest();</tag>
+      </item>
+    </one-of>
+    <tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/DuinoMultiRemote";</tag>
+  </rule>
+  
+  <!-- Rules -->
+
+  <rule id="ruleOnOff" scope="public">
+    <tag>out.action=new Object()</tag>
+    <one-of>
+      <item>Allume <tag>out.action.val="1"</tag> </item>
+      <item>Mets   <tag>out.action.val="1"</tag> </item>
+      <item>éteind <tag>out.action.val="0"</tag> </item>
+      <item>Coupe  <tag>out.action.val="0"</tag> </item>
+    </one-of>
+    <one-of>
+      <item>la </item>
+      <item>le </item>
+    </one-of>
+    <item> <ruleref uri="#ruleState"/> <tag>out.action.cmd=rules.latest(); </tag> </item>
+  </rule>
+
+  <rule id="ruleUp" scope="public">
+    <one-of>
+      <item>Monte    </item>
+      <item>Augmente </item>
+    </one-of>
+    <tag>out.action=new Object(); </tag>
+    <one-of>
+      <item>la led   <tag>out.action.cmd="led_up"; out.action.obj="led_state";   </tag></item>
+      <item>le rouge <tag>out.action.cmd="red_up"; out.action.obj="rgb_state";   </tag></item>
+      <item>le vert  <tag>out.action.cmd="green_up"; out.action.obj="rgb_state"; </tag></item>
+      <item>le bleu  <tag>out.action.cmd="blue_up"; out.action.obj="rgb_state";  </tag></item>
+    </one-of>
+    <item repeat="0-1"> <ruleref uri="#ruleOffset"/> <tag>out.action.offset=rules.latest();</tag> </item>
+  </rule>
+
+  <rule id="ruleDwn" scope="public">
+    <one-of>
+      <item>Baisse  </item>
+      <item>Diminue </item>
+      <item>Descend </item>
+    </one-of>
+    <tag>out.action=new Object();</tag>
+    <one-of>
+      <item>la led   <tag>out.action.cmd="led_dwn"; out.action.obj="led_state";   </tag></item>
+      <item>le rouge <tag>out.action.cmd="red_dwn"; out.action.obj="rgb_state";   </tag></item>
+      <item>le vert  <tag>out.action.cmd="green_dwn"; out.action.obj="rgb_state"; </tag></item>
+      <item>le bleu  <tag>out.action.cmd="blue_dwn"; out.action.obj="rgb_state";  </tag></item>
+    </one-of>
+    <item repeat="0-1"> <ruleref uri="#ruleOffset"/> <tag>out.action.offset=rules.latest();</tag> </item>
+  </rule>
+
+  <rule id="ruleStateValue" scope="public">
+    <one-of>
+      <item>Donne moi  </item>
+      <item>Quel est </item>
+      <item>Dis moi    </item>
+    </one-of>
+    <tag>out.action=new Object(); </tag>
+    <one-of>
+      <item>l'état
+        <one-of>
+          <item>du    </item>
+          <item>de la </item>
+        </one-of>
+        <tag>out.action.val="?";</tag>
+        <ruleref uri="#ruleState"/><tag>out.action.cmd=rules.latest();</tag>
+      </item>
+      <item>la valeur
+        <one-of>
+          <item>du    </item>
+          <item>de la </item>
+        </one-of>
+        <tag>out.action.val="#";</tag>
+        <ruleref uri="#ruleValue"/><tag>out.action.cmd=rules.latest();</tag>
+      </item>
+    </one-of>
+  </rule>
+
+  <rule id="ruleState" scope="public">
+    <tag>out.action=new Object(); </tag>
+    <one-of>
+      <item>led           <tag>out.action.cmd="led_state";</tag></item>
+      <item>rgb           <tag>out.action.cmd="rgb_state";</tag></item>
+      <item>potentiomètre <tag>out.action.cmd="pot_state";</tag></item>
+      <item>dispositif    <tag>out.action.cmd="swt_state";</tag></item>
+    </one-of>
+  </rule>
+
+  <rule id="ruleValue" scope="public">
+    <tag>out.action=new Object();</tag>
+    <one-of>
+      <item>led           <tag>out.action.cmd="led_val";  </tag></item>
+      <item>rouge         <tag>out.action.cmd="red_val";  </tag></item>
+      <item>vert          <tag>out.action.cmd="green_val";</tag></item>
+      <item>bleu          <tag>out.action.cmd="blue_val"; </tag></item>
+      <item>potentiomètre <tag>out.action.cmd="pot_val";  </tag></item>
+    </one-of>
+  </rule>
+
+  <rule id="ruleOffset" scope="public">
+    <item>de</item>
+    <tag>out.action=new Object();</tag>
+    <one-of>
+      <item>un        <tag>out.action.offset=1; </tag></item>
+      <item>deux      <tag>out.action.offset=2; </tag></item>
+      <item>trois     <tag>out.action.offset=3; </tag></item>
+      <item>quatre    <tag>out.action.offset=4; </tag></item>
+      <item>cinq      <tag>out.action.offset=5; </tag></item>
+      <item>six       <tag>out.action.offset=6; </tag></item>
+      <item>sept      <tag>out.action.offset=7; </tag></item>
+      <item>huit      <tag>out.action.offset=8; </tag></item>
+      <item>neuf      <tag>out.action.offset=9; </tag></item>
+      <item>dix       <tag>out.action.offset=10;</tag></item>
+      <item>vingt     <tag>out.action.offset=20;</tag></item>
+      <item>trente    <tag>out.action.offset=30;</tag></item>
+      <item>quarante  <tag>out.action.offset=40;</tag></item>
+      <item>cinquante <tag>out.action.offset=50;</tag></item>
+    </one-of>
+  </rule>
+
+</grammar>

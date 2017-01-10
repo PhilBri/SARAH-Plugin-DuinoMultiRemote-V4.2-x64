@@ -1,0 +1,96 @@
+<% sidebar = 	SARAH.PortalManager.SIDEBAR %>
+<% layout		('/layout/layout.ejs') -%>
+<% stylesheet	('/duinomultiremote/www/less/duinomultiremote.css') %>
+<% stylesheet	('/duinomultiremote/www/less/my_spectrum.css') %>
+<% script		('/duinomultiremote/www/js/spectrum/spectrum.js') %>
+<% script		('/duinomultiremote/www/js/spectrum/i18n/jquery.spectrum-fr.js') %>
+<% script		('/duinomultiremote/www/js/portlet.js') %>
+
+<div class="panel-group">
+<!-- RGB LED panel -->
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="row">
+			<div class="col-xs-2"><a type="button" class="btn btn-default btn-xs pull-left" id="rgb_state">OFF</a></div>
+			<div class="col-xs-3">RGB</div>
+			<div class="col-xs-12 text-center">
+				<!-- RGB DEL color rendering -->
+				<input type='text' id="rgb-color"/>
+			</div>
+			<!-- RGB RED value -->
+			<div class="col-xs-12 text-center panel-rgb">
+				<div class="btn-group" role="group">
+					<!-- red Down button -->
+					<a type="button" class="btn btn-default btn-xs glyphicon glyphicon-minus"  id='red_dwn'></a>
+					<!-- red value -->
+					<!--<a href="/plugin/DuinoMultiRemote/modal/offsets.ejs?param1=COM1" data-action="modal" class="btn btn-default btn-xs" id="red_val">0</a>-->
+					<a type="button" class="btn btn-default btn-xs disabled" id="red_val">0</a>
+					<!-- red Up button -->
+					<a type="button" class="btn btn-default btn-xs glyphicon glyphicon-plus" id='red_up'></a>
+				</div>
+			</div>
+			<!-- RGB GREEN value -->
+			<div class="col-xs-12 text-center panel-rgb">
+				<div class="btn-group" role="group">
+					<!-- green Down button -->
+					<a type="button" class="btn btn-default btn-xs glyphicon glyphicon-minus" id='green_dwn'></a>
+					<!-- green value -->
+					<a type="button" class="btn btn-default btn-xs disabled text-center" id="green_val">0</a>
+					<!-- green Up button -->
+					<a type="button" class="btn btn-default btn-xs glyphicon glyphicon-plus" id='green_up'></a>
+				</div>
+			</div>
+			<!-- RGB BLUE value -->
+			<div class="col-xs-12 text-center panel-rgb">
+				<div class="btn-group" role="group">
+					<!-- blue Down button -->
+					<a type="button" class="btn btn-default btn-xs glyphicon glyphicon-minus" id='blue_dwn'></a>
+					<!-- blue value -->
+					<a type="button" class="btn btn-default btn-xs disabled" id="blue_val">0</a>
+					<!-- blue Up button -->
+					<a type="button" class="btn btn-default btn-xs glyphicon glyphicon-plus" id='blue_up'></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- LED panel -->
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="row">
+			<div class="col-xs-2"><a type="button" class="btn btn-default btn-xs pull-left" id="led_state">ON</a></div>
+			<div class="col-xs-3">LED</div>
+			<div class="col-xs-1"><span class="glyphicon glyphicon-dashboard"></span></div>
+			<div class="col-xs-6">
+				<div class="btn-group pull-right" role="group">
+					<a type="button" class="btn btn-default btn-xs glyphicon glyphicon-minus" id='led_dwn'></a>
+					<a type="button" class="btn btn-default btn-xs glyphicon glyphicon-plus" id='led_up'></a>
+					<a type="button" class="btn btn-default btn-xs disabled" id="led_val">0</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Switch panel -->
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="row">
+			<div class="col-xs-2"><a type="button" class="btn btn-default btn-xs pull-left" id="swt_state">OFF</a></div>
+			<div class="col-xs-3">Switch</div>
+			<div class="col-xs-1"><span class="glyphicon glyphicon-info-sign"></span></div>
+			<div class="col-xs-6 padded">Cycles<button type="button" class="btn btn-default btn-xs pull-right disabled" id="swt_val">0</button></div>
+		</div>
+	</div>
+</div>
+<!-- POTENTIOMETER panel -->
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="row">
+			<div class="col-xs-2"><a type="button" class="btn btn-default btn-xs pull-left" id="pot_state">OFF</a></div>
+			<div class="col-xs-3">Potent.</div>
+			<div class="col-xs-1"><span class="glyphicon glyphicon-stats"></span></div>
+			<div class="col-xs-6 padded">Value %<button type="button" class="btn btn-default btn-xs pull-right disabled" id="pot_val">0</button></div>
+		</div>
+	</div>
+</div>
+</div>
