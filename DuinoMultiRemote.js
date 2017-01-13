@@ -46,14 +46,12 @@ var duinoAction = function (data, next, clbk) {
         duinoVal = tab[dataSender + '_val'];        // tab
 
     if (tab.swt_state == 0 && dataSender !='swt' && data.val != '?') return next ({tts : 'Allumez d\'abord le dispositif'});
-
     // setting up/dwn offset
     if (!data.offset) data.offset = 10;
-
     // up/down new values
     if (duinoCmd == 'up' || duinoCmd == 'dwn')
         tab[dataSender + '_val'] = Math.max (0, Math.min (parseInt (duinoVal) + (duinoCmd == 'dwn' ? data.offset =- data.offset : data.offset), 255));
-
+    // tts's
     if (data.val) {
         if ((data.val == 'up' || data.val == "dwn") && tab[data.obj] == 0 )                       // Available ?
             next ({tts : settings[dataSender].cant})
@@ -66,13 +64,11 @@ var duinoAction = function (data, next, clbk) {
         else if (data.val == '#')                                                                 // Current value ?
             next ({tts : settings[dataSender][data.cmd][data.val].replace ('#', duinoVal)})
     }
-
+    // Vocal Responses
     if (!data.tts) {
         encodeDuinoData (data, function (encData) {clbk (encData);});
-
-        // Randomize response
         if (data.val) {
-            var tts = Math.floor ( Math.random() * settings[dataSender][data.cmd][data.val].length);
+            var tts = Math.floor ( Math.random() * settings[dataSender][data.cmd][data.val].length); // Randomize
             next ({tts:settings[dataSender][data.cmd][data.val][tts]});
         }
     }
@@ -120,9 +116,9 @@ exports.socket = function (io, socket) {
         info (settings.errs.connect);
         socket.on ('disconnect', function () {
             info (settings.errs.disconnect);
+            dmrSocket = false;
         })
         .on ('sendDuino', function (sendDuino) {
-            info ('sendDuino = ', sendDuino);
             duinoSerial.write (sendDuino);
         });
     });
