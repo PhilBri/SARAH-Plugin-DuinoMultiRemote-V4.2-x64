@@ -5,8 +5,7 @@
     "port"        : "[DuinoMultiRemote] Undefined Arduino COM Port !",
     "serialOpen"  : "[DuinoMultiRemote] Connected to Arduino on port : ",
     "serialClose" : "[DuinoMultiRemote] Disconnected to Arduino.",
-    "connect"     : "[DuinoMultiRemote] is connected to Portlet ...",
-    "disconnect"  : "[DuinoMultiRemote] is disconnected from Portlet ..."
+    "serialError" : "[DuinoMultiRemote] Arduino not found on port : %s !"
   },
 
   "tab" :
