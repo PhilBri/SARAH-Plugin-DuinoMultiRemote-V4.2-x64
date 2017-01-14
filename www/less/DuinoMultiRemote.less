@@ -1,10 +1,12 @@
 @DuinoColor: #00979C;
+@DuinoNoir: #6A5F4D;
 @DuinoBleu: #33A3EC;
+@DuinoBeige: #FAF0EA;
 @headHeight: 23px;
 @footHeight: 23px;
 @pluginHeight: 260px;
 
-#DuinoMultiRemote {
+DIV#DuinoMultiRemote {
 	border: none;
 	box-shadow: none;
 	min-height: @pluginHeight;
@@ -13,41 +15,52 @@
 		border-radius: 0px;
 		font-weight: bold;
 	}
-	#logo, .portlet-footer > .btn, .portlet-header, .portlet-footer {
+	#logo, .portlet-footer > .btn {
 		display: block;
 		margin: auto;
-		padding: 0px;
 		height: 100%;	
 		background: @DuinoColor;
 		border: none;
 		cursor: pointer;
+		.glyphicon {
+			padding: 0;
+			color: white;
+		}
 	}
 	.portlet-header {
 		height: @headHeight;
-		padding: 1px 4px;
+		padding: 4px 0px;
+		background: @DuinoColor;
 		H3 {
-			font-size: 18px;
-		}
-	}
-	.portlet-footer {
-		height: @footHeight;
-		padding: 2px;;
-		.pdp {
-			height: 100%;
-		}
-		.glyphicon {
-			color: white;
+			display: none;
 		}
 	}
 	.portlet-body {
 		height: @pluginHeight - @headHeight - @footHeight;
 		padding: 0px;
 	}
+	.portlet-footer::before { content: "DuinoMultiRemote"; }
+	.portlet-footer {
+		padding: 0px 0px 0px 5px;
+		height: @footHeight;
+		font-size: 16px;
+		color: white;
+		background: @DuinoColor;
+	}
 	.panel-group {
 		margin: 5px 0px 0px 0px;
+		.disabled {
+			opacity: 1;
+		}
+		.glyphicon {
+			transform: scale(0.5, 0.5);
+		}
 		.panel {
-			border: none;
-			margin-top: 8px;
+			border-left: none;
+			border-right: none;
+		}
+		.panel-rgb > .panel-heading {
+			border-bottom: 1px solid #ddd;
 		}
 		.panel-heading {
 			padding-top: 0px;
@@ -55,75 +68,51 @@
 			* {
 				padding: 0px;
 			}
-		.disabled {
-			opacity: 1;
-		}
-			.btn {
+			[class*="col-xs-"] > .btn {
 				width: 25px;
-				background: white;
-			}
-			.btn:hover, [id*="_val"], [id*="_state"]:not(.panel-rgb) {
 				color: @DuinoBleu;
-				border-color: @DuinoBleu
+				border-color: @DuinoBleu;
 			}
-
-			.btn.active, .btn:active {
-				//outline: 0;
-				-webkit-box-shadow: none;
-						box-shadow: none;
+			.col-xs-1 {
+				.glyphicon {
+					transform: scale(0.7, 0.7);
+					font-weight: normal;
+				}
 			}
-
-
-			#led_up, #led_dwn {
-				background: transparent;
-				border: none;
-				
+			.col-xs-6 {
+				padding-left: 4px;
+				.btn-group > .btn {
+					border-top: none;
+					border-bottom: none;
+				}
+				#led_val {
+					color: @DuinoBleu;
+				}
 			}
-			.glyphicon-plus, .glyphicon-minus {
-				transform: scale(0.8, 0.8);
-				//font-weight: normal;
+		}
+		.panel-body {
+			padding: 5px 0px;
+			* {
+				padding: 0px;
 			}
-			.col-xs-3 {
-				padding-left: 2px;
-			}
-			.sp-replacer {
-				border: none;
-				//padding-left: 25px;
-				margin: 4px 0;
+			.btn {
 				width: 30px;
-				text-align: center;
-				.sp-preview {
-					width: 100%;
-				}
-				.sp-dd {
-					//width: 20px;
-					display: none;
-				}
+				margin-top: 2px;
 			}
-			.padded {
-				padding-left: 8px;
+			#red_val { 
+				background: #F00;
+				color: white; 
+				border: 1px solid #F00; 
 			}
-			.panel-rgb {
-				.btn {
-					width: 30px;
-					border: none;
-					background-color: transparent;
-				}
-				#red_val {
-					background: #F00;
-					color: white; 
-					border: 1px solid #F00; 
-				}
-				#green_val { 
-					background: #3C3; 
-					color: white; 
-					border: 1px solid #3C3; 
-				}
-				#blue_val { 
-					background: #00F; 
-					color: white; 
-					border: 1px solid #00F;
-				}
+			#green_val { 
+				background: #3C3; 
+				color: white; 
+				border: 1px solid #3C3; 
+			}
+			#blue_val { 
+				background: #00F; 
+				color: white; 
+				border: 1px solid #00F; 
 			}
 		}
 	}
