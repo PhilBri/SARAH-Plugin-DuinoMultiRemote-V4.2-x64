@@ -10,17 +10,20 @@
 
     // Register
     var register = function() {
+        // Socket.IO
         socket = io ()
-        .emit ('sendDuino', '?\n')
+        .on ('connect', function () {
+            socket.emit ('DMR-Connect', "DMR");
+            socket.emit ('sendDuino', '?\n');
+        })
         .on ('portlet', function (data) {
             // Buttons & sliders
             for (var key in tab = data) $('#'+key).text (key.match (/state/) ?  tab[key]=='0' ? 'OFF' : 'ON' : tab[key]);
 
-            $('DIV#DuinoMultiRemote .btn').each ( function() {
-                if ($(this).text() == 'ON') $(this).css ({'background':duinobleu, 'color':'white'})
-                else if ($(this).text() == 'OFF') $(this).css ({'background':'white', 'color':duinobleu});
+            $('.btn').each ( function() {
+                if ($(this).text() == 'ON') $(this).css ({'background':duinobleu, 'color':'white'});
+                if ($(this).text() == 'OFF') $(this).css ({'background':'white', 'color':duinobleu});
             });
-            
             // Switch
             if ($('#swt_state').text()=='OFF')
                 $('#led_state, #rgb_state').attr ('disabled','disabled').css ({'background':'white', 'color':'grey', 'border-color':'grey'});

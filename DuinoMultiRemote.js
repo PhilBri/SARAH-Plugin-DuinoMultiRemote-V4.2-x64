@@ -24,10 +24,10 @@ var decodeDuinoData = function (serialData, clbk) {
 // Encoding Arduino's datas
 var encodeDuinoData = function (cmdData, clbk) {
     var dataSender = cmdData.cmd.split ('_' )[0],
-        duinoCmd = cmdData.cmd.split ('_')[1];
+        duinoCmd = cmdData.cmd.split ('_')[1];        // datas
 
+        if (duinoCmd == 'state') tab[cmdData.cmd] = 0x01 - tab[cmdData.cmd];
         // Making arduino's requests
-        if (duinoCmd == 'state') tab[cmdData.cmd] = 0x01 - tab[cmdData.cmd]; // invert status
         if (dataSender == 'swt')
             clbk ('S\n')
         else if (dataSender == 'led')
@@ -51,7 +51,7 @@ var duinoAction = function (data, next, clbk) {
     // up/down new values
     if (duinoCmd == 'up' || duinoCmd == 'dwn')
         tab[dataSender + '_val'] = Math.max (0, Math.min (parseInt (duinoVal) + (duinoCmd == 'dwn' ? data.offset =- data.offset : data.offset), 255));
-    // tts's for new values responses
+    // tts's
     if (data.val) {
         if ((data.val == 'up' || data.val == "dwn") && tab[data.obj] == 0 )                       // Available ?
             next ({tts : settings[dataSender].cant})
@@ -64,11 +64,11 @@ var duinoAction = function (data, next, clbk) {
         else if (data.val == '#')                                                                 // Current value ?
             next ({tts : settings[dataSender][data.cmd][data.val].replace ('#', duinoVal)})
     }
-    // randomize tts for new/get statuses
+    // Vocal Responses
     if (!data.tts) {
         encodeDuinoData (data, function (encData) {clbk (encData);});
         if (data.val) {
-            var tts = Math.floor ( Math.random() * settings[dataSender][data.cmd][data.val].length);
+            var tts = Math.floor ( Math.random() * settings[dataSender][data.cmd][data.val].length); // Randomize
             next ({tts:settings[dataSender][data.cmd][data.val][tts]});
         }
     }
@@ -91,8 +91,7 @@ var setLibs = function () {
         });
     })
     .on ('error', function (err) {
-        duinoSerial = false;
-        error (settings.errs.serialError, port, err);
+        return error ('[DuinoMultiRemote] ', err);
     });
 }
 
@@ -112,8 +111,16 @@ exports.init = function () {
 }
 
 exports.socket = function (io, socket) {
-    socket.on ('sendDuino', function (sendDuino) {
+    socket.on ('DMR-Connect', function (plugName) {
         dmrSocket = socket;
-        if (duinoSerial) duinoSerial.write (sendDuino);
+        info (settings.errs.connect);
+        socket.on ('disconnect', function () {
+            info (settings.errs.disconnect);
+            dmrSocket = false;
+        })
+        .on ('sendDuino', function (sendDuino) {
+            duinoSerial.write (sendDuino);
+        });
     });
 }
+
