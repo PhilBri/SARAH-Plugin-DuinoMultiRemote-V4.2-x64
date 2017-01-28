@@ -1,6 +1,6 @@
 #![](../master/www/images/duinologowhite.png) DuinoMultiRemote
 
-### _Take advantage of real-time communications between ARDUINO & S.A.R.A.H_
+### _Take advantage of real-time communications of your ARDUINO vocally with S.A.R.A.H_
 
 ***
 This plugin is an add-on for the framework [S.A.R.A.H.](http://encausse.net/s-a-r-a-h), an Home Automation project built 
