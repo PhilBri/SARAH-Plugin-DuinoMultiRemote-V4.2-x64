@@ -1,6 +1,6 @@
 #![](../master/www/images/duinologowhite.png) DuinoMultiRemote
 
-### _Real-time voice control of your Arduino with S.A.R.A.H._
+### Arduino Real-Time Voice Control with [S.A.R.A.H.](http://encausse.net/s-a-r-a-h)
 
 ***
 This plugin is an add-on for the framework [S.A.R.A.H.](http://encausse.net/s-a-r-a-h), an Home Automation project built 
