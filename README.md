@@ -65,7 +65,7 @@ This doc includes manuals, schemas and tips for the plugin, but you will also fi
 
 ###Read it !
 
-The inline plugin documentation is also available in HTML format: [documentation]('../master/index.html')
+The inline plugin documentation is also available in HTML format: [documentation]('../index.html')
 
 Therefore, you have the opportunity to learn about all the functions, possibilities and capabilities of this module.
    
