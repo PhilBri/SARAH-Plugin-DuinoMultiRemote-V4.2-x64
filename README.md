@@ -1,4 +1,4 @@
-#![](../master/www/images/duinologowhite.png) DuinoMultiRemote
+![](../master/www/images/duinologowhite.png) #DuinoMultiRemote
 
 ### Arduino Real-Time Voice Control with [S.A.R.A.H.](http://encausse.net/s-a-r-a-h)
 
